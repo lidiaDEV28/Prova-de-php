@@ -1,0 +1,28 @@
+-- Criação da tabela de perfis
+CREATE TABLE perfil (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50) NOT NULL
+);
+
+-- Criação da tabela de usuários
+CREATE TABLE usuario (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    perfil_id INT,
+    FOREIGN KEY (perfil_id) REFERENCES perfil(id)
+);
+
+-- Inserção de perfis
+INSERT INTO perfil (nome) VALUES ('Admin');
+INSERT INTO perfil (nome) VALUES ('Usuário Comum');
+
+-- Inserção de usuários
+INSERT INTO usuario (nome, email, senha, perfil_id) VALUES ('Lídia Winny', 'lidia@example.com', 'senha123', 1);
+INSERT INTO usuario (nome, email, senha, perfil_id) VALUES ('João Silva', 'joao@example.com', 'senha123', 2);
+
+-- Consulta para verificar os dados inseridos com os relacionamentos
+SELECT u.nome AS Usuario, u.email, p.nome AS Perfil
+FROM usuario u
+JOIN perfil p ON u.perfil_id = p.id;
